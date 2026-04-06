@@ -1,7 +1,34 @@
-name: Hello-World 
-on: [push, workflow_dispatch] 
-jobs: 
-  greet: 
-    runs-on: ubuntu-latest 
-    steps: 
-      - run: echo "The Factory is Online"
+# -------------------------------------------------------------------------
+# Lab ID: 3.2 - Establishing the GitHub Automation Factory
+# Purpose: Basic "Hello World" and Connection Verification
+# -------------------------------------------------------------------------
+
+name: Hello-World-Pipeline
+
+# 1. THE TRIGGERS (The Sensors)
+# This workflow wakes up on every code push OR when you click the button.
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+# 2. THE JOBS (The Factory Tasks)
+jobs:
+  greet-the-cloud:
+    # THE WORKER: This rents a fresh Linux VM from GitHub's data center.
+    runs-on: ubuntu-latest
+    
+    steps:
+      # THE ACTIONS: Individual commands for the Worker to execute.
+      
+      - name: 1. Start the Assembly Line
+        run: echo "Initializing the AI-300 Factory..."
+
+      - name: 2. Proof of Life
+        run: echo "The Sensor detected a Push! Connection to GitHub is ACTIVE."
+
+      - name: 3. Display Metadata
+        run: |
+          echo "Worker OS: ${{ runner.os }}"
+          echo "Repository: ${{ github.repository }}"
+          echo "Actor: ${{ github.actor }}"
